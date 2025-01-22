@@ -10,7 +10,19 @@ jobs:
   dependencies:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [18.x]
+
     steps:
+      - uses: actions/checkout@v4
+
+      - name: use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          cache: 'yarn'
+          node-version: ${{ matrix.node-version }}
+
       - name: Install dependencies
         run: yarn
 
@@ -19,7 +31,19 @@ jobs:
 
     needs: dependencies
 
+    strategy:
+      matrix:
+        node-version: [18.x]
+
     steps:
+      - uses: actions/checkout@v4
+
+      - name: use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          cache: 'yarn'
+          node-version: ${{ matrix.node-version }}
+
       - name: Build standalone
         run: yarn build
 
@@ -28,7 +52,19 @@ jobs:
 
     needs: dependencies
 
+    strategy:
+      matrix:
+        node-version: [18.x]
+
     steps:
+      - uses: actions/checkout@v4
+
+      - name: use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          cache: 'yarn'
+          node-version: ${{ matrix.node-version }}
+
       - name: Code linting
         run: yarn linters
   
@@ -37,7 +73,19 @@ jobs:
 
     needs: build
 
+    strategy:
+      matrix:
+        node-version: [18.x]
+
     steps:
+      - uses: actions/checkout@v4
+
+      - name: use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          cache: 'yarn'
+          node-version: ${{ matrix.node-version }}
+
       - name: Deploy
         run: yarn deploy
 
